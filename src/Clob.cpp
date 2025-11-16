@@ -98,7 +98,7 @@ void Clob::run()
     {
         int action = 0;
         int qty = 0;
-        int price = 0;
+        double price = 0;
 
         print();
         if (!(cin >> action >> qty >> price))
