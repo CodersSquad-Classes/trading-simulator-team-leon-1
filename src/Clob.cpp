@@ -2,19 +2,16 @@
 #include <time.h>
 #include "iomanip"
 
-Clob::Clob()
-{
-    print_header();
-}
-
 void Clob::addBuy(double price, int qty)
 {
     buyPQ.push(Order(price, qty));
+    print();
 }
 
 void Clob::addSell(double price, int qty)
 {
     sellPQ.push(Order(price, qty));
+    print();
 }
 
 void Clob::match()
@@ -51,19 +48,41 @@ void Clob::print_header()
 
 void Clob::print()
 {
-    const Order &buyTop = buyPQ.top();
-    const Order &sellTop = sellPQ.top();
+    cout << "\033[2J\033[H";
+    print_header();
 
-    cout << setw(w) << format_time(buyTop.timestamp)
-         << setw(w) << buyTop.quantity
-         << setw(w) << fixed << setprecision(2) << buyTop.price;
+    priority_queue<Order, vector<Order>, BuyCompare> buy_copy = buyPQ;
+    priority_queue<Order, vector<Order>, SellCompare> sell_copy = sellPQ;
 
-    cout << " | ";
-
-    cout << setw(w) << format_time(sellTop.timestamp)
-         << setw(w) << sellTop.quantity
-         << setw(w) << fixed << setprecision(2) << sellTop.price
-         << "\n";
+    while (!buy_copy.empty() || !sell_copy.empty())
+    {
+        if (!buy_copy.empty())
+        {
+            const Order &buy = buy_copy.top();
+            cout << setw(w) << format_time(buy.timestamp)
+                 << setw(w) << buy.quantity
+                 << setw(w) << fixed << setprecision(2) << buy.price;
+            buy_copy.pop();
+        }
+        else
+        {
+            cout << setw(3 * w) << "";
+        }
+        cout << " | ";
+        if (!sell_copy.empty())
+        {
+            const Order &sell = sell_copy.top();
+            cout << setw(w) << format_time(sell.timestamp)
+                 << setw(w) << sell.quantity
+                 << setw(w) << fixed << setprecision(2) << sell.price;
+            sell_copy.pop();
+        }
+        else
+        {
+            cout << setw(3 * w) << "";
+        }
+        cout << "\n";
+    }
 
     cout << LINE << "\n";
 }

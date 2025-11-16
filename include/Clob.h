@@ -15,7 +15,7 @@ private:
     priority_queue<Order, vector<Order>, SellCompare> sellPQ;
 
 public:
-    Clob();
+    Clob() {};
     void addBuy(double price, int qty);
     void addSell(double price, int qty);
     void match();
