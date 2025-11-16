@@ -7,6 +7,6 @@ int main()
 {
     Clob *BookViewer = new Clob();
 
-    // Start the running
+    // Start the simulation
     BookViewer->run();
 }

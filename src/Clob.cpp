@@ -14,6 +14,29 @@ void Clob::addSell(double price, int qty)
 
 void Clob::match()
 {
+    if (buyPQ.empty() || sellPQ.empty())
+    {
+        return;
+    }
+
+    Order best_buy = buyPQ.top();
+    Order best_sell = sellPQ.top();
+
+    if (best_buy.price > best_sell.price)
+    {
+        if (best_buy.quantity > best_sell.quantity)
+        {
+            best_buy.quantity -= best_sell.quantity;
+        }
+        buyPQ.pop();
+        sellPQ.pop();
+        buyPQ.push(best_buy);
+        log.push("MATCH done");
+        if (log.size() >= 5)
+        {
+            log.pop();
+        }
+    }
 }
 
 string format_time(time_t time)
@@ -41,6 +64,25 @@ void Clob::print_header()
          << setw(w) << "Qty"
          << setw(w) << "Price"
          << "\n";
+    cout << LINE << "\n";
+}
+
+void Clob::print_history()
+{
+    queue<string> log_copy = log;
+
+    cout << "History Log\n";
+    cout << LINE << "\n";
+
+    int count = 0;
+
+    while (!log_copy.empty() && count < 5)
+    {
+        cout << log_copy.front() << "\n";
+        log_copy.pop();
+        count++;
+    }
+
     cout << LINE << "\n";
 }
 
@@ -84,6 +126,8 @@ void Clob::print()
 
     cout << LINE << "\n";
 
+    print_history();
+
     cout << "\n";
     cout << "Options:\n";
     cout << "  1: Add BUY Order (Format: 1 Qty Price)\n";
@@ -120,12 +164,22 @@ void Clob::run()
         if (action == 1)
         {
             addBuy(price, qty);
-            cout << "Added BUY Order: " << qty << " @ " << fixed << setprecision(2) << price << endl;
+            log.push("Added BUY Order");
+            if (log.size() > 5)
+            {
+                log.pop();
+            }
+            // cout << "Added BUY Order: " << qty << " @ " << fixed << setprecision(2) << price << endl;
         }
         else if (action == 2)
         {
             addSell(price, qty);
-            cout << "Added SELL Order: " << qty << " @ " << fixed << setprecision(2) << price << endl;
+            log.push("Added SELL Order");
+            if (log.size() > 5)
+            {
+                log.pop();
+            }
+            // cout << "Added SELL Order: " << qty << " @ " << fixed << setprecision(2) << price << endl;
         }
         else if (action == 0) // Uso de 0 como acción de salida
         {
@@ -136,5 +190,6 @@ void Clob::run()
         {
             cerr << "Error: Invalid action number. Use 1 or 2.\n";
         }
+        match();
     }
 }
