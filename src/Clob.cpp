@@ -27,19 +27,38 @@ string format_time(time_t time)
 
 void Clob::print()
 {
-    cout << "  Buy\n";
-    cout << "  " << left << setw(10) << "Time" << setw(10) << "Qty" << setw(10) << "Price" << "\n";
+    const int w = 10;
+    const string LINE = "-------------------------------------------------------------";
 
     const Order &buyTop = buyPQ.top();
-    cout << "  " << setw(10) << format_time(buyTop.timestamp)
-         << setw(10) << buyTop.quantity
-         << setw(10) << fixed << setprecision(2) << buyTop.price << "\n";
-
-    cout << "\n  Sell\n";
-    cout << "  " << left << setw(10) << "Time" << setw(10) << "Qty" << setw(10) << "Price" << "\n";
-
     const Order &sellTop = sellPQ.top();
-    cout << "  " << setw(10) << format_time(sellTop.timestamp)
-         << setw(10) << sellTop.quantity
-         << setw(10) << fixed << setprecision(2) << sellTop.price << "\n";
+
+    cout << LINE << "\n";
+    cout << left << setw(3 * w) << "BUY (bids)"
+         << " | "
+         << "SELL (asks)\n";
+    cout << LINE << "\n";
+
+    cout << left << setw(w) << "Time"
+         << setw(w) << "Qty"
+         << setw(w) << "Price"
+         << " | "
+         << setw(w) << "Time"
+         << setw(w) << "Price"
+         << setw(w) << "Qty"
+         << "\n";
+    cout << LINE << "\n";
+
+    cout << setw(w) << format_time(buyTop.timestamp)
+         << setw(w) << buyTop.quantity
+         << setw(w) << fixed << setprecision(2) << buyTop.price;
+
+    cout << " | ";
+
+    cout << setw(w) << format_time(sellTop.timestamp)
+         << setw(w) << sellTop.quantity
+         << setw(w) << fixed << setprecision(2) << sellTop.price
+         << "\n";
+
+    cout << LINE << "\n";
 }
