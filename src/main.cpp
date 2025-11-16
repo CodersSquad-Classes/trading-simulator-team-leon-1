@@ -11,4 +11,5 @@ int main()
     BookViewer->addBuy(14, 5);
     BookViewer->addSell(10, 5);
     BookViewer->addSell(100, 5);
+    BookViewer->run();
 }
