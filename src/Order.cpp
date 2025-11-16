@@ -2,7 +2,7 @@
 
 Order::Order(double p, int qty) : price(p), quantity(qty)
 {
-    isBuy = false;
+    status = 0;
     timestamp = time(NULL);
 };
 
