@@ -2,6 +2,11 @@
 #include <time.h>
 #include "iomanip"
 
+Clob::Clob()
+{
+    print_header();
+}
+
 void Clob::addBuy(double price, int qty)
 {
     buyPQ.push(Order(price, qty));
@@ -25,14 +30,8 @@ string format_time(time_t time)
     return string(clean_time);
 }
 
-void Clob::print()
+void Clob::print_header()
 {
-    const int w = 10;
-    const string LINE = "-------------------------------------------------------------";
-
-    const Order &buyTop = buyPQ.top();
-    const Order &sellTop = sellPQ.top();
-
     cout << LINE << "\n";
     cout << left << setw(3 * w) << "BUY (bids)"
          << " | "
@@ -48,6 +47,12 @@ void Clob::print()
          << setw(w) << "Qty"
          << "\n";
     cout << LINE << "\n";
+}
+
+void Clob::print()
+{
+    const Order &buyTop = buyPQ.top();
+    const Order &sellTop = sellPQ.top();
 
     cout << setw(w) << format_time(buyTop.timestamp)
          << setw(w) << buyTop.quantity
