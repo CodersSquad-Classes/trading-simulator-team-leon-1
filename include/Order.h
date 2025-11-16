@@ -7,7 +7,7 @@ struct Order
     double price;
     int quantity;
     time_t timestamp;
-    bool isBuy;
+    int status;
     Order(double p, int qty);
 };
 
