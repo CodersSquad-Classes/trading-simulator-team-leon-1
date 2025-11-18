@@ -1,10 +1,43 @@
 # Project Documentation
 
-## 📌 Project Name
-
-**Trading Simulator – Team León 1**
+## **Trading Simulator – Team León 1**
 
 ---
+
+## How to build and run
+
+### 1. Prerequisites
+
+- A C++ compiler that supports C++17 (`g++`, `clang++`).
+- The `make` build utility.
+
+### 2. Directory Structure
+
+This project uses a standard `src`/`include`/`build` layout. The `Makefile` assumes all source files (`.cpp`) are in the `src/` directory and all header files (`.h`) are in the `include/` directory.
+
+```text
+project-root/
+├── Makefile
+├── include/
+│   ├── Clob.h
+│   └── Order.h
+└── src/
+    ├── Clob.cpp
+    ├── Order.cpp
+    └── main.cpp
+```
+
+### 3. Build Instructions
+
+To compile the project, run the `make` command from the `root` directory. This will compile all `.cpp` files from `src/`, place the object files in `build/`, and create the final executable main in the `root`
+
+### 4. Run the simulation
+
+Once built, you can run the simulation
+
+```text
+./main.exe
+```
 
 ## 📄 Introduction
 
@@ -12,10 +45,10 @@ This project is a **trading simulator** that implements a **Matching Engine** us
 
 The simulator includes:
 
-* Traders capable of sending buy/sell limit orders.
-* A fully functional order book storing bids and asks.
-* A matching engine that processes orders and executes trades.
-* A real-time terminal dashboard that displays market depth and recent trades.
+- Traders capable of sending buy/sell limit orders.
+- A fully functional order book storing bids and asks.
+- A matching engine that processes orders and executes trades.
+- A real-time terminal dashboard that displays market depth and recent trades.
 
 This project provides hands-on experience with **financial market microstructure**, **C++ data structures**, and **exchange system architecture**.
 
@@ -27,9 +60,9 @@ This project provides hands-on experience with **financial market microstructure
 
 A **Limit Order Book** stores all open (unmatched) buy and sell limit orders.
 
-* **Bids** (buy orders): sorted from highest → lowest price.
-* **Asks** (sell orders): sorted from lowest → highest price.
-* **Market orders** execute immediately at the best available price.
+- **Bids** (buy orders): sorted from highest → lowest price.
+- **Asks** (sell orders): sorted from lowest → highest price.
+- **Market orders** execute immediately at the best available price.
 
 A LOB is dynamic: orders are inserted, removed, matched, partially filled, or canceled.
 
@@ -37,10 +70,10 @@ A LOB is dynamic: orders are inserted, removed, matched, partially filled, or ca
 
 The matching engine:
 
-* Receives incoming orders.
-* Looks for matches using **price‑time priority**.
-* Executes full or partial trades.
-* Updates the book accordingly.
+- Receives incoming orders.
+- Looks for matches using **price‑time priority**.
+- Executes full or partial trades.
+- Updates the book accordingly.
 
 **Priority rules:**
 
@@ -52,9 +85,9 @@ The matching engine:
 A CLOB aggregates **all** orders from **all** participants.
 Benefits:
 
-* Liquidity
-* Transparency
-* Fair price discovery
+- Liquidity
+- Transparency
+- Fair price discovery
 
 Our simulator follows the exact CLOB logic.
 
@@ -81,8 +114,8 @@ Our simulator follows the exact CLOB logic.
 |     Traders     | -----> |  Matching Engine  | -----> |   Trade History   |
 | (Order Sender)  |        |                   |        |                   |
 +-----------------+        +---------+---------+        +---------+---------+
-                                  |                            
-                                  v                            
+                                  |
+                                  v
                         +---------+---------+         +--------+--------+
                         |      Order Book   |         |   Terminal UI   |
                         |   (Bids & Asks)   |         | Dashboard View  |
@@ -95,18 +128,18 @@ Our simulator follows the exact CLOB logic.
 
 The order book uses:
 
-* **Two maps (ordered containers)**:
+- **Two maps (ordered containers)**:
 
-  * `map<double, queue<Order>> bids;` (sorted descending)
-  * `map<double, queue<Order>> asks;` (sorted ascending)
+  - `map<double, queue<Order>> bids;` (sorted descending)
+  - `map<double, queue<Order>> asks;` (sorted ascending)
 
 Each **price level** contains a **FIFO queue** of orders.
 
 Advantages:
 
-* O(log n) insertion
-* O(1) access to oldest order per price level
-* Automatic sorting of price levels
+- O(log n) insertion
+- O(1) access to oldest order per price level
+- Automatic sorting of price levels
 
 ---
 
@@ -166,14 +199,14 @@ Recent Trades:
 
 ## 🔑 Key Functions
 
-* `addOrder(Order o)` – Appends order to the correct price level.
-* `cancelOrder(int id)` – Removes an existing order.
-* `modifyOrder(int id, int newQty, float newPrice)` – Updates price or size.
-* `matchOrders()` – Core matching loop.
-* `getBestBid()` / `getBestAsk()` – Accessors for top levels.
-* `executeTrade(Order a, Order b, int qty)` – Stores trade and logs it.
-* `printOrderBook()` – Displays current book.
-* `simulate(int steps)` – Runs automated order flow.
+- `addOrder(Order o)` – Appends order to the correct price level.
+- `cancelOrder(int id)` – Removes an existing order.
+- `modifyOrder(int id, int newQty, float newPrice)` – Updates price or size.
+- `matchOrders()` – Core matching loop.
+- `getBestBid()` / `getBestAsk()` – Accessors for top levels.
+- `executeTrade(Order a, Order b, int qty)` – Stores trade and logs it.
+- `printOrderBook()` – Displays current book.
+- `simulate(int steps)` – Runs automated order flow.
 
 ---
 
@@ -185,5 +218,6 @@ This evidence helped me understand the use of queues in real life activities, an
 
 ### 👤 **Aarón Hernández**
 
+This activity helped me understand the aplications of priority queues in code but also in real life cases. I also learned about the CLOB concept, and it was useful to see how this data structures can be used to build complex systems as this.
 
 ---
