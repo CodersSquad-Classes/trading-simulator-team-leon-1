@@ -1,4 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/yqZxj4OI)
+
 # Stock Exchange Matching Engine
 
 Traders continuously post bids to buy or sell stock. A limit order means that a buyer (seller) places an order to buy (sell) a specified amount of a given stock at or below (at or above) a given price. The order book displays buy and sell orders, and ranks them by price and then by time. Matching engine matches compatible buyers and sellers; if there are multiple possible buyers, break ties by choosing the buyer that placed the bid earliest. Use two priority queues for each stock, one for buyers and one for sellers.
@@ -7,27 +8,56 @@ A continuous limit order book (CLOB) is a trading system used by exchanges to ma
 
 On this challenge, you're implementing a Continuos Limit Order Book (CLOB). Buyers and sellers will be **dynamically** created and then displayed in a **real-time dashboard**. Consider that your implementation should look **as realist as possible** (you can use colors). You are free to choose the number of rows to display. Take a look in the following [document](https://faculty.haas.berkeley.edu/hender/ITpro.pdf), the Island's limit order book can be a good example of what is expected, but in terminal.
 
-
 ## How to build and run
 
-_ADD YOUR INSTRUCTIONS HERE_
+### 1. Prerequisites
 
+- A C++ compiler that supports C++17 (`g++`, `clang++`).
+- The `make` build utility.
+
+### 2. Directory Structure
+
+This project uses a standard `src`/`include`/`build` layout. The `Makefile` assumes all source files (`.cpp`) are in the `src/` directory and all header files (`.h`) are in the `include/` directory.
+
+```text
+project-root/
+├── Makefile
+├── include/
+│   ├── Clob.h
+│   └── Order.h
+└── src/
+    ├── Clob.cpp
+    ├── Order.cpp
+    └── main.cpp
+```
+
+### 3. Build Instructions
+
+To compile the project, run the `make` command from the `root` directory. This will compile all `.cpp` files from `src/`, place the object files in `build/`, and create the final executable main in the `root`
+
+### 4. Run the simulation
+
+Once built, you can run the simulation
+
+```text
+./main.exe
+```
 
 ## Deliverables
 
 - Source code must be implemented in `*.cpp` and `*.h` files
 - Instructions at [How to build and run](#how-to-build-and-run) section
 - [DOCS.md](./DOCS.md)
-    - Introduction
-    - Research on stocks exchange 
-    - Software Design and Implementation (diagrams, charts, key functions, code snippets, etc)
-    - Conclusions and Learnings (one per teammate)
- 
+  - Introduction
+  - Research on stocks exchange
+  - Software Design and Implementation (diagrams, charts, key functions, code snippets, etc)
+  - Conclusions and Learnings (one per teammate)
+
 ## Grading Policy
 
-| Rubric                           | Points |
-|----------------------------------|--------|
-| Use of Priority Queues           |   40   |
-| Terminal-based real-time UI      |   30   |
-| Documentation                    |   30   |
-| Total                            |   100  |
+| Rubric                      | Points |
+| --------------------------- | ------ |
+| Use of Priority Queues      | 40     |
+| Terminal-based real-time UI | 30     |
+| Documentation               | 30     |
+| Total                       | 100    |

@@ -4,41 +4,6 @@
 
 ---
 
-## How to build and run
-
-### 1. Prerequisites
-
-- A C++ compiler that supports C++17 (`g++`, `clang++`).
-- The `make` build utility.
-
-### 2. Directory Structure
-
-This project uses a standard `src`/`include`/`build` layout. The `Makefile` assumes all source files (`.cpp`) are in the `src/` directory and all header files (`.h`) are in the `include/` directory.
-
-```text
-project-root/
-├── Makefile
-├── include/
-│   ├── Clob.h
-│   └── Order.h
-└── src/
-    ├── Clob.cpp
-    ├── Order.cpp
-    └── main.cpp
-```
-
-### 3. Build Instructions
-
-To compile the project, run the `make` command from the `root` directory. This will compile all `.cpp` files from `src/`, place the object files in `build/`, and create the final executable main in the `root`
-
-### 4. Run the simulation
-
-Once built, you can run the simulation
-
-```text
-./main.exe
-```
-
 ## 📄 Introduction
 
 This project is a **trading simulator** that implements a **Matching Engine** using a **Central Limit Order Book (CLOB)** model. The goal is to simulate how real stock exchanges receive orders, store them in an order book, and execute trades using price‑time priority.
